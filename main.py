@@ -139,7 +139,7 @@ def draw_hero(draw):
         draw.polygon([(x0, yb), (xm, ym), (x1, yb)], fill=YELLOW)
     # Caption chip.
     draw.rectangle([24, 176, 24 + 430, 176 + 30], fill=(0, 0, 0))
-    draw.text((36, 182), "SOUTH PAPUA \u2014 THE EPICENTRE",
+    draw.text((36, 182), "SOUTH PAPUA \u2014 HARDEST HIT",
               font=font(BOLD, 18), fill=(255, 255, 255))
 
 
@@ -195,8 +195,7 @@ def main():
     draw.text((32, 92), "PAPUA STILL BURNING",
               font=font(BOLD, 48), fill=RED)
     draw.text((32, 140),
-              "Forest fires rage on; smoke chokes the island as crews "
-              "fight to hold the line",
+              "436 hectares hit in South Papua; smoke reaches five provinces",
               font=font(REG, 18), fill=GREY)
 
     # --- Hero panel (160-430) ------------------------------------------
@@ -222,7 +221,7 @@ def main():
     # --- Three story panels (540-880) ----------------------------------
     panels = [
         ("THE FOREST FIRES",
-         "Forest fires have burned since 18 July. South Papua lost "
+         "Fires burning since 18 July in Nabire. South Papua lost "
          "25,838 ha in Jan\u2013Jul; Wasur National Park lost 8,707 ha.",
          draw_icon_a),
         ("TOLIKARA MARKET FIRE",
