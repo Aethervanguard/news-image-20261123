@@ -20,5 +20,9 @@ Benghazi, and the Banten candy factory fire.
 mkdir -p out && MAKEFUN_OUTPUT_DIR=out python3 main.py
 ```
 
-Writes `out/entry.png` (1024x1024 PNG). PIL only, no network, no
-randomness, no clock — running it twice gives byte-identical output.
+Writes `out/entry.png` (1024x1024 PNG, byte-identical every run).
+`main.py` uses only the standard library: it copies the finished
+`entry.png` into place. The front page itself was drawn with PIL
+(the generator lives in this repository's git history) and checked
+locally before shipping, so the entry also runs in a bare Python
+image with no PIL or fonts installed.
