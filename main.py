@@ -69,43 +69,65 @@ def vgrad(draw, box, top, bottom):
 
 
 def draw_hero(draw):
-    """Smoky sky, flame tongues, a simple Papua island silhouette."""
-    # Smoky sky: dark grey at top, hazy brown-orange near the flames.
-    vgrad(draw, (0, 160, W, 430), (38, 38, 44), (122, 88, 58))
-    # Smoke puffs (deterministic positions, muted grey-brown tones).
+    """Burning sky: near-black smoke, ember glow, tall flame tongues,
+    a scorched Papua island silhouette with dead trees."""
+    # Sky: almost black at top, blood-red ember glow near the flames.
+    vgrad(draw, (0, 160, W, 430), (14, 10, 12), (150, 34, 12))
+    # Thick, dark smoke banks rolling across the sky.
     puffs = [
-        (60, 170, 260, 250, (150, 140, 128)),
-        (300, 180, 520, 250, (140, 130, 118)),
-        (560, 165, 800, 240, (155, 145, 130)),
-        (820, 185, 990, 255, (145, 135, 122)),
-        (180, 220, 420, 300, (160, 148, 132)),
-        (620, 225, 900, 300, (150, 138, 122)),
+        (40, 168, 300, 252, (52, 44, 40)),
+        (280, 178, 560, 252, (66, 52, 44)),
+        (540, 164, 830, 246, (48, 40, 38)),
+        (800, 184, 1000, 258, (60, 48, 42)),
+        (150, 218, 440, 300, (74, 58, 48)),
+        (600, 222, 920, 302, (56, 46, 40)),
     ]
     for x0, y0, x1, y1, col in puffs:
         draw.ellipse([x0, y0, x1, y1], fill=col)
+    # Embers rising through the smoke.
+    embers = [
+        (120, 200, 3, ORANGE), (240, 185, 2, YELLOW), (360, 210, 3, ORANGE),
+        (480, 190, 2, YELLOW), (620, 205, 3, ORANGE), (740, 185, 2, YELLOW),
+        (860, 210, 3, ORANGE), (950, 195, 2, YELLOW), (180, 250, 2, ORANGE),
+        (540, 255, 3, YELLOW), (820, 255, 2, ORANGE),
+    ]
+    for ex, ey, r, col in embers:
+        draw.ellipse([ex - r, ey - r, ex + r, ey + r], fill=col)
 
-    # Papua island silhouette (simplified): long body, bird-head west.
+    # Papua island silhouette (simplified), scorched dark green-black.
     island = [
         (70, 330), (120, 300), (180, 295), (260, 288), (350, 285),
         (470, 290), (580, 300), (700, 312), (820, 300), (940, 325),
         (960, 345), (880, 360), (720, 375), (540, 372), (380, 378),
         (240, 372), (130, 362), (75, 350),
     ]
-    draw.polygon(island, fill=(47, 74, 46), outline=(20, 40, 20))
-    # Fire points on the island (red core, orange halo).
+    draw.polygon(island, fill=(22, 30, 20), outline=(8, 12, 8))
+    # Dead, charred trees standing on the island (thin black spikes).
+    for tx in (150, 230, 330, 470, 600, 730, 850):
+        draw.polygon([(tx, 300), (tx + 4, 330), (tx + 8, 300)], fill=(8, 8, 8))
+        draw.line([(tx + 4, 300), (tx + 4, 288)], fill=(8, 8, 8), width=3)
+    # Fire points on the island (red core, orange halo, bigger).
     fires = [(300, 330), (430, 325), (560, 335), (700, 340),
              (830, 330), (180, 320), (900, 340)]
     for fx, fy in fires:
-        draw.ellipse([fx - 9, fy - 9, fx + 9, fy + 9], fill=ORANGE)
-        draw.ellipse([fx - 5, fy - 5, fx + 5, fy + 5], fill=(220, 40, 20))
-    # Flame tongues along the bottom edge.
+        draw.ellipse([fx - 12, fy - 12, fx + 12, fy + 12], fill=ORANGE)
+        draw.ellipse([fx - 7, fy - 7, fx + 7, fy + 7], fill=(220, 30, 10))
+    # Tall flame tongues along the bottom edge: dark red, orange, yellow.
     flames = [
-        (40, 430, 90, 372, 140, 430), (120, 430, 180, 360, 240, 430),
-        (220, 430, 290, 368, 360, 430), (340, 430, 410, 355, 480, 430),
-        (460, 430, 540, 370, 620, 430), (600, 430, 670, 358, 740, 430),
-        (720, 430, 800, 368, 880, 430), (860, 430, 930, 362, 1000, 430),
+        (40, 430, 90, 340, 140, 430), (120, 430, 180, 322, 240, 430),
+        (220, 430, 290, 336, 360, 430), (340, 430, 410, 318, 480, 430),
+        (460, 430, 540, 338, 620, 430), (600, 430, 670, 320, 740, 430),
+        (720, 430, 800, 336, 880, 430), (860, 430, 930, 324, 1000, 430),
     ]
     for x0, yb, xm, ym, x1, _ in flames:
+        draw.polygon([(x0, yb), (xm, ym), (x1, yb)], fill=(160, 20, 8))
+    mid = [
+        (55, 430, 100, 362, 145, 430), (140, 430, 190, 348, 240, 430),
+        (240, 430, 300, 358, 360, 430), (360, 430, 420, 342, 480, 430),
+        (480, 430, 550, 360, 620, 430), (620, 430, 680, 344, 740, 430),
+        (740, 430, 810, 358, 880, 430), (880, 430, 940, 348, 990, 430),
+    ]
+    for x0, yb, xm, ym, x1, _ in mid:
         draw.polygon([(x0, yb), (xm, ym), (x1, yb)], fill=ORANGE)
     inner = [
         (70, 430, 105, 392, 140, 430), (170, 430, 205, 385, 240, 430),
